@@ -31,9 +31,11 @@ export type RelationsToTableNamesT =
  */
 export type PromisesRemapped<T>
     = { [K in keyof T]: T[K] extends Promise<infer S>
-        ? S extends IBase<infer K2>
-        ? Parse.Object<PromisesRemapped<WholeSchema[K2]["value"]>>
-        : never
+        ? (S extends Array<IBase<infer K2>>
+            ? Parse.Object<Array<PromisesRemapped<WholeSchema[K2]["value"]>>>
+            : (S extends IBase<infer K2>
+                ? Parse.Object<PromisesRemapped<WholeSchema[K2]["value"]>>
+                : never))
         : T[K]
     };
 
