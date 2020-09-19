@@ -3,6 +3,7 @@ import * as Schema from "../Schema";
 import { StaticUncachedBase, StaticBaseImpl, UncachedBase } from "./Base";
 import { PromisesRemapped } from "../WholeSchema";
 import { Conference, _User } from ".";
+import { RoleNames } from "../Schema/_Role";
 
 type SchemaT = Schema._Role;
 type K = "_Role";
@@ -13,7 +14,7 @@ export default class Class extends UncachedBase<K> implements SchemaT {
         super(K_str, parse);
     }
 
-    get name(): string {
+    get name(): RoleNames {
         return this.parse.get("name");
     }
 
