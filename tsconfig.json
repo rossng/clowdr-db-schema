@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    // TODO: Switch back to es5 for production?
+    "target": "es6",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": false,
+    "noImplicitReturns": true,
+    "jsx": "react",
+    "downlevelIteration": true,
+    "outDir": "build",
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "noFallthroughCasesInSwitch": true
+    // "noUnusedLocals": true,
+    // "noUnusedParameters": true,
+  },
+  "include": ["src"],
+  "typeRoots": ["./src/types", "./node_modules/@types"],
+  "exclude": ["**/test/**/*","**/tests/**/*"]
+}

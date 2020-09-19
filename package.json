@@ -1,0 +1,66 @@
+{
+    "name": "clowdr-db-schema",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "@types/node": "^14.6.4",
+        "@types/parse": "^2.12.5",
+        "@typescript-eslint/eslint-plugin": "^2.10.0",
+        "@typescript-eslint/parser": "^2.10.0",
+        "camelcase": "^5.3.1",
+        "csv-parser": "^2.3.3",
+        "dotenv": "8.2.0",
+        "dotenv-expand": "5.1.0",
+        "eslint": "^6.6.0",
+        "eslint-config-react-app": "^5.2.1",
+        "eslint-loader": "3.0.3",
+        "eslint-plugin-import": "2.20.1",
+        "file-loader": "4.3.0",
+        "idb": "^5.0.4",
+        "moment": "^2.27.0",
+        "moment-timezone": "^0.5.31",
+        "ngrok": "^3.3.0",
+        "parse": "^2.15.0",
+        "strongly-typed-events": "^1.6.19",
+        "ts-loader": "^8.0.3",
+        "ts-pnp": "1.1.6",
+        "ts-transformer-keys": "^0.4.2",
+        "xml2json": "^0.12.0"
+    },
+    "lint-staged": {
+        "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [
+            "prettier --write",
+            "git add"
+        ]
+    },
+    "scripts": {
+        "export-schema": "node-env-run -E .env-main scripts/export-schema.js",
+        "convert-program-csv": "node utils/programCSV2TestDataGen.js -i sample-program-upload.csv -o sample-program-data.js --ost \"2020-09-02 12:00\""
+    },
+    "eslintConfig": {
+        "extends": "react-app"
+    },
+    "homepage": "https://icse2020.clowdr.org/",
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "devDependencies": {
+        "body-parser": "^1.19.0",
+        "bson": "^4.1.0",
+        "csv-parse": "^4.12.0",
+        "fs-extra": "^8.1.0",
+        "node-env-run": "^4.0.1",
+        "npm-run-all": "^4.1.5",
+        "typescript": "^3.9.7",
+        "yargs": "^16.0.3"
+    }
+}
