@@ -15,6 +15,10 @@ export default class Class extends CachedBase<K> implements SchemaT {
         super(conferenceId, K_str, data, parse);
     }
 
+    get autoSubscribe(): boolean {
+        return this.data.autoSubscribe;
+    }
+
     get mirrored(): boolean {
         return this.data.mirrored;
     }

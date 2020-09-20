@@ -48,7 +48,6 @@ export const RelationsToTableNames: RelationsToTableNamesT = {
         conference: "Conference"
     },
     Conference: {
-        autoSubscribeToTextChats: "TextChat"
     },
     ConferenceConfiguration: {
         conference: "Conference"

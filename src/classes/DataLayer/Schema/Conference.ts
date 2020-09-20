@@ -1,5 +1,4 @@
 import { Base } from ".";
-import { TextChat } from "../Interface";
 import Parse from "parse";
 
 export default interface Schema extends Base {
@@ -8,6 +7,4 @@ export default interface Schema extends Base {
     name: string;
     shortName: string;
     welcomeText: string;
-
-    autoSubscribeToTextChats: Promise<Array<TextChat>>;
 }

@@ -5,3 +5,5 @@ db/test
 *.json
 !*.metadata.json
 !_SCHEMA.json
+
+db/schema-base/_JobStatus.metadata.json

@@ -112,11 +112,13 @@ function generateTSSchema(jsonSchemaText) {
     ordinaryFields = ordinaryFields.sort((x, y) => x.name.localeCompare(y.name));
     relatedFields = relatedFields.sort((x, y) => x.name.localeCompare(y.name));
 
+    let filteredImportTypes
+        = Array.from(importTypes)
+        .filter(x => x !== "Parse.File")
+        .sort((x, y) => x.localeCompare(y));
     let intfImportLine
-        = importTypes.size > 0
-            ? `\nimport { ${Array.from(importTypes)
-            .filter(x => x !== "Parse.File")
-            .sort((x, y) => x.localeCompare(y))
+        = filteredImportTypes.length > 0
+            ? `\nimport { ${filteredImportTypes
                 .reduce((acc, x) => `${acc}, ${x}`)} } from "../Interface";`
         : "";
 
