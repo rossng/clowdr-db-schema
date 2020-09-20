@@ -35,10 +35,6 @@ export default class Class extends CachedBase<K> implements SchemaT {
         return this.data.lastProgramUpdateTime;
     }
 
-    get admin(): Promise<_User> {
-        return this.nonUniqueRelated("admin");
-    }
-
     get details(): Promise<Array<PrivilegedConferenceDetails>> {
         return StaticBaseImpl.getAllByField("PrivilegedConferenceDetails", "conference", this.id);
     }
