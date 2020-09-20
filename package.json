@@ -34,7 +34,6 @@
         ]
     },
     "scripts": {
-        "export-schema": "node-env-run -E .env-main scripts/export-schema.js",
         "convert-program-csv": "node utils/programCSV2TestDataGen.js -i sample-program-upload.csv -o sample-program-data.js --ost \"2020-09-02 12:00\""
     },
     "eslintConfig": {
