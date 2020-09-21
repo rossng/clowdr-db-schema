@@ -364,8 +364,10 @@ export abstract class CachedBase<K extends CachedSchemaKeys> implements IBase<K>
                         });
 
                         let ids = this.data[key] as string[];
-                        for (let targetId of ids) {
-                            r.add(new Parse.Object("", { id: targetId }));
+                        if (ids) {
+                            for (let targetId of ids) {
+                                r.add(new Parse.Object(RelationsToTableNames[this.tableName][key as any], { id: targetId }));
+                            }
                         }
                     }
                 }
