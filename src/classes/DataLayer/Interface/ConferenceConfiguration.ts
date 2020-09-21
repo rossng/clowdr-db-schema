@@ -28,6 +28,10 @@ export default class Class extends UncachedBase<K> implements SchemaT {
         return StaticBaseImpl.get(K_str, id, conferenceId);
     }
 
+    static getByKey(key: string, conferenceId: string): Promise<Array<Class>> {
+        return StaticBaseImpl.getAllByField("ConferenceConfiguration", "key", key, conferenceId);
+    }
+
     static getAll(conferenceId?: string): Promise<Array<Class>> {
         return StaticBaseImpl.getAll(K_str, conferenceId);
     }
