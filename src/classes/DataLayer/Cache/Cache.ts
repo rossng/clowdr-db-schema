@@ -87,71 +87,94 @@ export default class Cache {
     /**
      * All fields including related fields.
      */
-    readonly Fields: {
+    private static fields: {
         [K in CachedSchemaKeys]: Array<KnownKeys<CachedSchema[K]["value"]>>;
-    } = {
-            AttachmentType: keys<Schema.AttachmentType>(),
-            Flair: keys<Schema.Flair>(),
-            ProgramItemAttachment: keys<Schema.ProgramItemAttachment>(),
-            ProgramRoom: keys<Schema.ProgramRoom>(),
-            ProgramSession: keys<Schema.ProgramSession>(),
-            ProgramSessionEvent: keys<Schema.ProgramSessionEvent>(),
-            TextChat: keys<Schema.TextChat>(),
-            TextChatMessage: keys<Schema.TextChatMessage>(),
-            VideoRoom: keys<Schema.VideoRoom>(),
-            UserProfile: keys<Schema.UserProfile>(),
-            ProgramPerson: keys<Schema.ProgramPerson>(),
-            ProgramItem: keys<Schema.ProgramItem>(),
-            ProgramTrack: keys<Schema.ProgramTrack>(),
-            Conference: keys<Schema.Conference>(),
-            PrivilegedConferenceDetails: keys<Schema.PrivilegedConferenceDetails>(),
-        };
+    } | null = null;
+    static get Fields() {
+        if (!Cache.fields) {
+            Cache.fields =
+            {
+                AttachmentType: keys<Schema.AttachmentType>(),
+                Flair: keys<Schema.Flair>(),
+                ProgramItemAttachment: keys<Schema.ProgramItemAttachment>(),
+                ProgramRoom: keys<Schema.ProgramRoom>(),
+                ProgramSession: keys<Schema.ProgramSession>(),
+                ProgramSessionEvent: keys<Schema.ProgramSessionEvent>(),
+                TextChat: keys<Schema.TextChat>(),
+                TextChatMessage: keys<Schema.TextChatMessage>(),
+                VideoRoom: keys<Schema.VideoRoom>(),
+                UserProfile: keys<Schema.UserProfile>(),
+                ProgramPerson: keys<Schema.ProgramPerson>(),
+                ProgramItem: keys<Schema.ProgramItem>(),
+                ProgramTrack: keys<Schema.ProgramTrack>(),
+                Conference: keys<Schema.Conference>(),
+                PrivilegedConferenceDetails: keys<Schema.PrivilegedConferenceDetails>(),
+            };
+        }
+        return Cache.fields;
+    }
+
+    private static relations: {
+        [K in CachedSchemaKeys]: Array<KnownKeys<CachedSchema[K]["indexes"]>>;
+    } | null = null;
 
     /**
      * All relations including to uncached tables.
      */
-    readonly Relations: {
+    static get Relations() {
+        if (!Cache.relations) {
+            Cache.relations =
+            {
+                AttachmentType: keys<PromisedFields<Schema.AttachmentType>>(),
+                Flair: keys<PromisedFields<Schema.Flair>>(),
+                ProgramItemAttachment: keys<PromisedFields<Schema.ProgramItemAttachment>>(),
+                ProgramRoom: keys<PromisedFields<Schema.ProgramRoom>>(),
+                ProgramSession: keys<PromisedFields<Schema.ProgramSession>>(),
+                ProgramSessionEvent: keys<PromisedFields<Schema.ProgramSessionEvent>>(),
+                TextChat: keys<PromisedFields<Schema.TextChat>>(),
+                TextChatMessage: keys<PromisedFields<Schema.TextChatMessage>>(),
+                VideoRoom: keys<PromisedFields<Schema.VideoRoom>>(),
+                UserProfile: keys<PromisedFields<Schema.UserProfile>>(),
+                ProgramPerson: keys<PromisedFields<Schema.ProgramPerson>>(),
+                ProgramItem: keys<PromisedFields<Schema.ProgramItem>>(),
+                ProgramTrack: keys<PromisedFields<Schema.ProgramTrack>>(),
+                Conference: keys<PromisedFields<Schema.Conference>>(),
+                PrivilegedConferenceDetails: keys<PromisedFields<Schema.PrivilegedConferenceDetails>>(),
+            };
+        }
+        return Cache.relations;
+    }
+
+    private static uniqueRelations: {
         [K in CachedSchemaKeys]: Array<KnownKeys<CachedSchema[K]["indexes"]>>;
-    } = {
-            AttachmentType: keys<PromisedFields<Schema.AttachmentType>>(),
-            Flair: keys<PromisedFields<Schema.Flair>>(),
-            ProgramItemAttachment: keys<PromisedFields<Schema.ProgramItemAttachment>>(),
-            ProgramRoom: keys<PromisedFields<Schema.ProgramRoom>>(),
-            ProgramSession: keys<PromisedFields<Schema.ProgramSession>>(),
-            ProgramSessionEvent: keys<PromisedFields<Schema.ProgramSessionEvent>>(),
-            TextChat: keys<PromisedFields<Schema.TextChat>>(),
-            TextChatMessage: keys<PromisedFields<Schema.TextChatMessage>>(),
-            VideoRoom: keys<PromisedFields<Schema.VideoRoom>>(),
-            UserProfile: keys<PromisedFields<Schema.UserProfile>>(),
-            ProgramPerson: keys<PromisedFields<Schema.ProgramPerson>>(),
-            ProgramItem: keys<PromisedFields<Schema.ProgramItem>>(),
-            ProgramTrack: keys<PromisedFields<Schema.ProgramTrack>>(),
-            Conference: keys<PromisedFields<Schema.Conference>>(),
-            PrivilegedConferenceDetails: keys<PromisedFields<Schema.PrivilegedConferenceDetails>>(),
-        };
+    } | null = null;
 
     /**
      * All relations to unique items including to uncached tables.
      */
-    readonly UniqueRelations: {
-        [K in CachedSchemaKeys]: Array<KnownKeys<CachedSchema[K]["indexes"]>>;
-    } = {
-            AttachmentType: keys<PromisedNonArrayFields<Schema.AttachmentType>>(),
-            Flair: keys<PromisedNonArrayFields<Schema.Flair>>(),
-            ProgramItemAttachment: keys<PromisedNonArrayFields<Schema.ProgramItemAttachment>>(),
-            ProgramRoom: keys<PromisedNonArrayFields<Schema.ProgramRoom>>(),
-            ProgramSession: keys<PromisedNonArrayFields<Schema.ProgramSession>>(),
-            ProgramSessionEvent: keys<PromisedNonArrayFields<Schema.ProgramSessionEvent>>(),
-            TextChat: keys<PromisedNonArrayFields<Schema.TextChat>>(),
-            TextChatMessage: keys<PromisedNonArrayFields<Schema.TextChatMessage>>(),
-            VideoRoom: keys<PromisedNonArrayFields<Schema.VideoRoom>>(),
-            UserProfile: keys<PromisedNonArrayFields<Schema.UserProfile>>(),
-            ProgramPerson: keys<PromisedNonArrayFields<Schema.ProgramPerson>>(),
-            ProgramItem: keys<PromisedNonArrayFields<Schema.ProgramItem>>(),
-            ProgramTrack: keys<PromisedNonArrayFields<Schema.ProgramTrack>>(),
-            Conference: keys<PromisedNonArrayFields<Schema.Conference>>(),
-            PrivilegedConferenceDetails: keys<PromisedNonArrayFields<Schema.PrivilegedConferenceDetails>>(),
-        };
+    static get UniqueRelations() {
+        if (!Cache.uniqueRelations) {
+            Cache.uniqueRelations =
+            {
+                AttachmentType: keys<PromisedNonArrayFields<Schema.AttachmentType>>(),
+                Flair: keys<PromisedNonArrayFields<Schema.Flair>>(),
+                ProgramItemAttachment: keys<PromisedNonArrayFields<Schema.ProgramItemAttachment>>(),
+                ProgramRoom: keys<PromisedNonArrayFields<Schema.ProgramRoom>>(),
+                ProgramSession: keys<PromisedNonArrayFields<Schema.ProgramSession>>(),
+                ProgramSessionEvent: keys<PromisedNonArrayFields<Schema.ProgramSessionEvent>>(),
+                TextChat: keys<PromisedNonArrayFields<Schema.TextChat>>(),
+                TextChatMessage: keys<PromisedNonArrayFields<Schema.TextChatMessage>>(),
+                VideoRoom: keys<PromisedNonArrayFields<Schema.VideoRoom>>(),
+                UserProfile: keys<PromisedNonArrayFields<Schema.UserProfile>>(),
+                ProgramPerson: keys<PromisedNonArrayFields<Schema.ProgramPerson>>(),
+                ProgramItem: keys<PromisedNonArrayFields<Schema.ProgramItem>>(),
+                ProgramTrack: keys<PromisedNonArrayFields<Schema.ProgramTrack>>(),
+                Conference: keys<PromisedNonArrayFields<Schema.Conference>>(),
+                PrivilegedConferenceDetails: keys<PromisedNonArrayFields<Schema.PrivilegedConferenceDetails>>(),
+            };
+        }
+        return Cache.uniqueRelations;
+    }
 
     /**
      * All relations to non-unique items including to uncached tables.
@@ -548,14 +571,14 @@ export default class Cache {
         let schema: any = {
             id: parse.id
         };
-        for (let _key of this.Fields[tableName]) {
+        for (let _key of Cache.Fields[tableName]) {
             let key = _key as KnownKeys<LocalDataT[K]>;
             if (key !== "id") {
                 // Yes these casts are safe
 
-                let rels = this.Relations[tableName] as Array<string>;
+                let rels = Cache.Relations[tableName] as Array<string>;
                 if (rels.includes(key as string)) {
-                    let uniqRels = this.UniqueRelations[tableName] as Array<string>;
+                    let uniqRels = Cache.UniqueRelations[tableName] as Array<string>;
                     try {
                         if (uniqRels.includes(key as string)) {
                             let xs = parse.get(key as any);
@@ -760,7 +783,7 @@ export default class Cache {
         t: IDBPTransaction<ExtendedCachedSchema>,
         name: K,
         item: CachedSchema[K]["value"]): Promise<void> {
-        let StoreFieldNames = this.Fields[name] as Array<string>;
+        let StoreFieldNames = Cache.Fields[name] as Array<string>;
         let updatedItem = { ...item };
         let edited = false;
         for (let key in item) {

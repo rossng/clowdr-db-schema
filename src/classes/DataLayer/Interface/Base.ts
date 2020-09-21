@@ -336,6 +336,48 @@ export abstract class CachedBase<K extends CachedSchemaKeys> implements IBase<K>
         return this.data.updatedAt;
     }
 
+    async save(): Promise<void> {
+        if (!this.parse) {
+            // @ts-ignore
+            let parseData: PromisesRemapped<CachedSchema[K]["value"]> = {
+                id: this.id
+            };
+            this.parse = new Parse.Object<PromisesRemapped<CachedSchema[K]["value"]>>(this.tableName, parseData);
+        }
+        
+        for (let _key of Cache.Fields[this.tableName]) {
+            let key = _key as KnownKeys<LocalDataT[K]>;
+            if (key !== "id") {
+                // Yes these casts are safe
+
+                let rels = Cache.Relations[this.tableName] as Array<string>;
+                if (rels.includes(key as string)) {
+                    let uniqRels = Cache.UniqueRelations[this.tableName] as Array<string>;
+                    if (uniqRels.includes(key as string)) {
+                        let targetId = this.data[key] as unknown as string;
+                        this.parse.set(key as any, new Parse.Object(RelationsToTableNames[key as any], { id: targetId }) as any);
+                    }
+                    else {
+                        let r = this.parse.relation(key as any);
+                        await r.query().map(x => {
+                            r.remove(x);
+                        });
+
+                        let ids = this.data[key] as string[];
+                        for (let targetId of ids) {
+                            r.add(new Parse.Object("", { id: targetId }));
+                        }
+                    }
+                }
+                else {
+                    this.parse.set(key as any, this.data[key]);
+                }
+            }
+        }
+
+        await this.parse.save();
+    }
+
     protected async uniqueRelated<S extends KnownKeys<RelatedDataT[K]>>(field: S): Promise<RelatedDataT[K][S]> {
         let cache = await Caches.get(this.conferenceId);
         let r2t: Record<string, string> = RelationsToTableNames[this.tableName];
@@ -403,6 +445,10 @@ export abstract class UncachedBase<K extends UncachedSchemaKeys> implements IBas
 
     get updatedAt(): Date {
         return this.parse.updatedAt;
+    }
+
+    async save(): Promise<void> {
+        await this.parse.save();
     }
 
     protected async uniqueRelated<S extends KnownKeys<RelatedDataT[K]>>(field: S): Promise<RelatedDataT[K][S]> {

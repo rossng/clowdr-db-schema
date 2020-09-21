@@ -19,48 +19,96 @@ export default class Class extends CachedBase<K> implements SchemaT {
         return this.data.affiliation;
     }
 
+    set affiliation(value) {
+        this.data.affiliation = value;
+    }
+
     get bio(): string | undefined {
         return this.data.bio;
+    }
+
+    set bio(value) {
+        this.data.bio = value;
     }
 
     get country(): string | undefined {
         return this.data.country;
     }
 
+    set country(value) {
+        this.data.country = value;
+    }
+
     get displayName(): string {
         return this.data.displayName;
+    }
+
+    set displayName(value) {
+        this.data.displayName = value;
     }
 
     get position(): string | undefined {
         return this.data.position;
     }
 
+    set position(value) {
+        this.data.position = value;
+    }
+
     get profilePhoto(): Parse.File | undefined {
         return this.data.profilePhoto;
+    }
+
+    set profilePhoto(value) {
+        this.data.profilePhoto = value;
     }
 
     get pronouns(): Array<string> {
         return this.data.pronouns;
     }
 
+    set pronouns(value) {
+        this.data.pronouns = value;
+    }
+
     get realName(): string {
         return this.data.realName;
+    }
+
+    set realName(value) {
+        this.data.realName = value;
     }
 
     get dataConsentGiven(): boolean {
         return this.data.dataConsentGiven;
     }
 
+    set dataConsentGiven(value) {
+        this.data.dataConsentGiven = value;
+    }
+
     get tags(): Schema.UserProfileTag[] {
         return this.data.tags;
+    }
+
+    set tags(value) {
+        this.data.tags = value;
     }
 
     get webpage(): string | undefined {
         return this.data.webpage;
     }
 
+    set webpage(value) {
+        this.data.webpage = value;
+    }
+
     get welcomeModalShown(): boolean {
         return this.data.welcomeModalShown;
+    }
+
+    set welcomeModalShown(value) {
+        this.data.welcomeModalShown = value;
     }
 
     get conference(): Promise<Conference> {
@@ -69,6 +117,12 @@ export default class Class extends CachedBase<K> implements SchemaT {
 
     get primaryFlair(): Promise<Flair> {
         return this.uniqueRelated("primaryFlair");
+    }
+
+    set primaryFlair(value) {
+        value.then(x => {
+            this.data.primaryFlair = x.id;
+        });
     }
 
     get presence(): Promise<UserPresence> {
@@ -89,6 +143,12 @@ export default class Class extends CachedBase<K> implements SchemaT {
 
     get flairs(): Promise<Flair[]> {
         return this.nonUniqueRelated("flairs");
+    }
+
+    set flairs(value) {
+        value.then(xs => {
+            this.data.flairs = xs.map(x => x.id);
+        });
     }
 
     static getByUserId(userId: string, conferenceId: string): Promise<Class | null> {
