@@ -614,7 +614,7 @@ export default class Cache {
                     // (`_previousSave` is a `Promise | undefined` which, when
                     // an "update due to save" occurs, contains a Promise, but
                     // on first page load is undefined.)
-                    if ("_previousSave" in schema[key]) {
+                    if (typeof schema[key] === "object" && "_previousSave" in schema[key]) {
                         schema[key]["_previousSave"] = undefined;
                     }
                 }
