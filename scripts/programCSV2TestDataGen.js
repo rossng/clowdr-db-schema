@@ -136,8 +136,6 @@ ${eventsCode.reduce((acc, x) => acc + x + "\n\n", "")}
     console.log("Done");
 }
 
-// TODO: Something isn't handling dates properly...
-
 function processInputData(data, timezone) {
     const records = csvParse(data, {
         columns: true, trim: true, skip_empty_lines: true
