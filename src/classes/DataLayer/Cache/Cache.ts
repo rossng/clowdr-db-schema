@@ -609,6 +609,14 @@ export default class Cache {
                 }
                 else {
                     schema[key] = parse.get(key as any);
+
+                    // TODO: Save `Parse.File` objects "properly"
+                    // (`_previousSave` is a `Promise | undefined` which, when
+                    // an "update due to save" occurs, contains a Promise, but
+                    // on first page load is undefined.)
+                    if ("_previousSave" in schema[key]) {
+                        schema[key]["_previousSave"] = undefined;
+                    }
                 }
             }
         }
