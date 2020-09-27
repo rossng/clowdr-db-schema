@@ -7,3 +7,5 @@ db/test
 !_SCHEMA.json
 
 db/schema-base/_JobStatus.metadata.json
+
+/build

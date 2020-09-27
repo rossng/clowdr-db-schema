@@ -29,6 +29,7 @@
     // "noUnusedParameters": true,
   },
   "include": ["src"],
-  "typeRoots": ["./src/types", "./node_modules/@types"],
+  "rootDir": "/src/classes",
+  "typeRoots": ["./src/types"],
   "exclude": ["**/test/**/*","**/tests/**/*"]
 }
