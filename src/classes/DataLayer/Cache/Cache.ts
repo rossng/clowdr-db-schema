@@ -494,6 +494,9 @@ export default class Cache {
 
         if (!this.liveQuerySubscriptions[tableName]) {
             let query = await this.newParseQuery(tableName);
+            if (tableName === "Conference") {
+                query.exclude("lastProgramUpdateTime" as any);
+            }
             let subscription = Cache.parseLive.subscribe(query, this.userSessionToken);
             this.liveQuerySubscriptions[tableName] = subscription;
 
@@ -565,8 +568,7 @@ export default class Cache {
     async addItemToCache<K extends CachedSchemaKeys, T extends CachedBase<K>>(
         parse: Parse.Object<PromisesRemapped<CachedSchema[K]["value"]>>,
         tableName: K,
-        _db: IDBPDatabase<ExtendedCachedSchema> | null = null,
-        conferenceLastProgramUpdateTimeOverride?: Date
+        _db: IDBPDatabase<ExtendedCachedSchema> | null = null
     ): Promise<T> {
         let schema: any = {
             id: parse.id
