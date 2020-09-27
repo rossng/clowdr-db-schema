@@ -434,7 +434,7 @@ export default class Cache {
                     
                         await Promise.all(CachedStoreNames.map(async store => {
                             try {
-                                await this.subscribeToUpdates(store, db);
+                                await this.subscribeToUpdates(store);
 
                                 let localRefillTime = localRefillTimes[store] ?? new Date(0);
                                 let isProgramTable = this.ProgramTableNames.includes(store);
@@ -481,9 +481,7 @@ export default class Cache {
         }
     }
 
-    private async subscribeToUpdates<K extends CachedSchemaKeys>(
-        tableName: K,
-        db: IDBPDatabase<ExtendedCachedSchema>): Promise<void> {
+    private async subscribeToUpdates<K extends CachedSchemaKeys>(tableName: K): Promise<void> {
         if (!Cache.parseLive) {
             throw new Error("Cannot subscribe to Live Query when client is not initialised.");
         }
@@ -494,9 +492,6 @@ export default class Cache {
 
         if (!this.liveQuerySubscriptions[tableName]) {
             let query = await this.newParseQuery(tableName);
-            if (tableName === "Conference") {
-                query.exclude("lastProgramUpdateTime" as any);
-            }
             let subscription = Cache.parseLive.subscribe(query, this.userSessionToken);
             this.liveQuerySubscriptions[tableName] = subscription;
 
