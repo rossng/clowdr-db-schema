@@ -1,9 +1,9 @@
 name: Release
 on:
-  push:
+- push:
     branches:
       - stable
-  on: workflow_dispatch
+- workflow_dispatch
 jobs:
   release:
     name: Release
